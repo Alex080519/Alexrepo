@@ -1,6 +1,5 @@
 <?php session_start();
 
-// Archivo index del ADMIN
 
 require 'config.php';
 require '../functions.php';
@@ -12,9 +11,14 @@ comprobarSession();
 if(!$conexion){
 	header('Location: ../error.php');
 }
-comprobarStatus();
+	$perfil = obtenerUsuarioId($conexion,$_SESSION['id_usuario']);
+	#print_r($perfil);
+	#masvil = obtenerUsuarioId($conexion,$id);
+	
+	require '../views/admin_perfil.view.php';
 
-$post = obtener_post($blog_config['post_por_pagina'], $conexion);
-require '../views/admin_index.view.php';
+
+
+
 
 ?>

@@ -11,8 +11,8 @@ if(!$conexion){
 }
 comprobarSession();
 comprobarStatus();
-$titulo = "contacto";
-$ver = mostrar_pagina($conexion,$titulo);
+$id_pagina = 1;
+$ver = mostrar_pagina_id($conexion,$id_pagina);
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$link = $_POST['link'];
 	$thumb_guardada = $_POST['thumb_guardada'];
 
-	
+
 	if(empty($thumb['name'])){
 		$thumb = $thumb_guardada;
 	}else{
@@ -35,8 +35,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		echo $thumb;
 	}
 
-
-	$sentencia=$conexion->prepare('UPDATE paginas SET id_pagina = :id_pagina,titulo=:titulo,descripcion=:descripcion,descripcion_larga=:descripcion_larga,keywords=:keywords,thumb=:thumb,link=:link WHERE titulo=:titulo');
+	
+	$sentencia=$conexion->prepare('UPDATE paginas SET id_pagina = :id_pagina,titulo=:titulo,descripcion=:descripcion,descripcion_larga=:descripcion_larga,keywords=:keywords,thumb=:thumb,link=:link WHERE id_pagina=:id_pagina');
 	$sentencia -> execute(array(
 		'id_pagina' => $id_pagina,
 		'titulo' => $titulo,
@@ -46,12 +46,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		'thumb' => $thumb,
 		':link' => $link
 	));
-	header('Location: contacto.php');
+	header('Location: principal.php');
 	
 }
 
 
-require '../views/admin_contacto.view.php';
+require '../views/admin_principal.view.php';
 
 ?>
-
